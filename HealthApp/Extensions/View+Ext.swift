@@ -8,8 +8,9 @@
 import Foundation
 import SwiftUI
 
+
 extension View {
     func quickLookPreview(_ isPresented: Binding<Bool>, items: [URL]) -> some View {
-        background(QuickLookPreview(isPresented: isPresented, items: items))
+        self.background(QuickLookPreview(isPresented: isPresented, items: items))
     }
 }

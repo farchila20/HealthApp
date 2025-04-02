@@ -25,13 +25,14 @@ struct DocumentViewer: View {
                         ForEach(documents, id: \.self) { document in
                             NavigationLink(destination: DocumentView(documentURL: document)) {
                                 DocumentListItem(document: document)
-                                
+                                    .accessibilityIdentifier("documentRow_\(document.lastPathComponent)")
                             }
                         }
                         .onDelete(perform: deleteDocument)
                     }
                     .overlay{if documents.isEmpty {
                         EmptyState()
+                            .accessibilityIdentifier("emptyState")
                     }
                     }
                     
@@ -58,6 +59,7 @@ struct DocumentViewer: View {
                                 )
                         }
                         .padding(.bottom, 20)
+                        .accessibilityIdentifier("addDocumentButton")
                     }}
                 
                 
@@ -81,6 +83,8 @@ struct DocumentViewer: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .padding(.horizontal, 40)
+                        .accessibilityIdentifier("consentButton")
+
                     }
                 }
             }

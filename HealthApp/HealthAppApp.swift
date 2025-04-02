@@ -11,7 +11,15 @@ import SwiftUI
 struct HealthAppApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            if ProcessInfo.processInfo.arguments.contains("UI_TESTING_DOCUMENTS") {
+                NavigationView {
+                    DocumentViewer(documents: [
+                        URL(fileURLWithPath: "/tmp/mock.pdf")
+                    ])
+                }
+            } else {
+                LoginView()
+            }
         }
     }
 }
