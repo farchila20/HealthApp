@@ -13,9 +13,7 @@ struct HealthAppApp: App {
         WindowGroup {
             if ProcessInfo.processInfo.arguments.contains("UI_TESTING_DOCUMENTS") {
                 NavigationView {
-                    DocumentViewer(documents: [
-                        URL(fileURLWithPath: "/tmp/mock.pdf")
-                    ])
+                    DocumentViewer(documents: [])
                 }
             } else {
                 LoginView()

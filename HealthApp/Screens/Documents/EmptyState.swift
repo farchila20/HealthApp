@@ -21,7 +21,10 @@ struct EmptyState:View {
                 .font(.headline)
                 .foregroundColor(.gray)
                 .padding()
-        }
+                .accessibilityLabel("emptyStateText")
+                .accessibilityIdentifier("emptyStateText")
+        } .accessibilityIdentifier("emptyStateContainer")
+        
         
     }
     

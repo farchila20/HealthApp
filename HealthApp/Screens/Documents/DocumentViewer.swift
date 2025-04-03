@@ -10,7 +10,7 @@ import PDFKit
 import QuickLook
 
 struct DocumentViewer: View {
-    @State  var documents: [URL] = []
+    @State  var documents: [FileModel] = []
     @State  var isPickerPresented = false
     @State  var hasConsent = false
     @StateObject private var uploader = FileUploaderService()
@@ -22,16 +22,17 @@ struct DocumentViewer: View {
                 VStack{
                     
                     List {
-                        ForEach(documents, id: \.self) { document in
-                            NavigationLink(destination: DocumentView(documentURL: document)) {
-                                DocumentListItem(document: document)
-                                    .accessibilityIdentifier("documentRow_\(document.lastPathComponent)")
+                        ForEach(documents) { document in
+                            NavigationLink(destination: DocumentView(documentURL: document.url)) {
+                                DocumentListItem(document: document.url)
+                                    .accessibilityIdentifier("documentRow_\(document.name)")
                             }
                         }
                         .onDelete(perform: deleteDocument)
                     }
                     .overlay{if documents.isEmpty {
                         EmptyState()
+                            .accessibilityLabel("emptyState")
                             .accessibilityIdentifier("emptyState")
                     }
                     }
@@ -59,7 +60,7 @@ struct DocumentViewer: View {
                                 )
                         }
                         .padding(.bottom, 20)
-                        .accessibilityIdentifier("addDocumentButton")
+                        .accessibilityLabel("addDocumentButton")
                     }}
                 
                 
@@ -83,9 +84,10 @@ struct DocumentViewer: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .padding(.horizontal, 40)
-                        .accessibilityIdentifier("consentButton")
+                        
 
                     }
+                    .accessibilityLabel("consentButton")
                 }
             }
             
@@ -109,7 +111,7 @@ struct DocumentViewer: View {
                     Task {
                         let success = await uploader.upload(fileURL: pickedURL)
                         if success {
-                            documents.append(pickedURL)
+                            documents.append(FileModel(url: pickedURL))
                             print("📄 Document appended using async/await!")
                         }
                     }
@@ -117,6 +119,7 @@ struct DocumentViewer: View {
             }
         }
         .navigationTitle("Documents")
+        .accessibilityIdentifier("documentListScreen")
         .navigationBarBackButtonHidden(true)
     }
     

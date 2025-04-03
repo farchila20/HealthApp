@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class LoginViewModel: ObservableObject {
-    @Published var email: String = "test@healthapp.com"
+    @Published var email: String = ""
     @Published var password: String = ""
     @Published var isAuthenticating = false
     @Published var isAuthenticatingsso = false
@@ -19,7 +19,7 @@ final class LoginViewModel: ObservableObject {
 
     func authenticateLocalUser() {
         isAuthenticating = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if self.email.lowercased() == "test@healthapp.com" && self.password == "test" {
                 self.showError = false
                 self.shouldNavigate = true

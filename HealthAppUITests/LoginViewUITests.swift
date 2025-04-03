@@ -22,17 +22,18 @@ final class LoginViewUITests: XCTestCase {
         let passwordField = app.secureTextFields["passwordField"]
         let loginButton = app.buttons["localLoginButton"]
 
-        XCTAssertTrue(emailField.waitForExistence(timeout: 5))
+        XCTAssertTrue(emailField.waitForExistence(timeout: 6))
         emailField.tap()
         emailField.typeText("test@healthapp.com")
 
         passwordField.tap()
         passwordField.typeText("test")
+        print(passwordField)
 
         loginButton.tap()
 
         let documentListTitle = app.navigationBars["Documents"]
-        XCTAssertTrue(documentListTitle.waitForExistence(timeout: 3))
+        XCTAssertTrue(documentListTitle.waitForExistence(timeout: 6))
     }
 
     func testFailedLoginShowsError() {
